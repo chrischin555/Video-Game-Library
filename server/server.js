@@ -18,19 +18,19 @@ const db = mysql.createConnection({
 });
 
 
-app.listen(5000, () => {
+app.listen(port, () => {
   console.log("Listening");
 })
 
 //SQL query for adding to database
 app.post('/signup', (req, res) => {
-  const sql = "INSERT INTO Users ('username', 'pass', 'email') VALUES ('?')";
+  const sql = "INSERT INTO Users (`username`, `pass`, 'email') VALUES (?, ?, ?, ?)";
   const values = [
     req.body.username,
     req.body.password,
     req.body.email
   ]
-  db.query(sql, [values], (err, data) => {
+  db.query(sql, values, (err, data) => {
     if (err) {
       return res.json({ message: "Something unexpected has occured" + err });
     }
