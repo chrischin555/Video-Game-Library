@@ -13,8 +13,8 @@ const port = 5000
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "p33p33p00p00", // this is the password i use for my localhost (christian)
-  database: "gamelibrary",
+  password: "", 
+  database: "gamelibrary"
 });
 
 app.listen(port, () => {
