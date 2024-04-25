@@ -6,7 +6,7 @@ import {Link, useNavigate} from 'react-router-dom';
 //setting up sign up form
 function Signup() {
     const [values, setValues] = useState({ //fields for setting username, email, password
-        userid: '',
+        //userid: '',
         username: '',
         email: '',
         password: ''

@@ -13,7 +13,7 @@ const port = 5000
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "", 
+  password: "",
   database: "gamelibrary"
 });
 
@@ -35,6 +35,22 @@ app.post("/signup", (req, res) => {
       return res.json({ message: "Something unexpected has occured" + err });
     }
     return res.json({ success: "User added successfully" + data });
+  })
+})
+
+//SQL query for logging in  
+app.post('/login', (req, res) => {
+  const sql = "SELECT * FROM users WHERE `Email` = ? AND `Pass` = ?";
+  db.query(sql, [req.body.email, req.body.password], (err, data) => {
+    if (err) {
+      return res.json({ message: "Something unexpected has occured" + err });
+    }
+
+    if (data.length > 0) {
+      return res.json({ success: "Login successful!" + data });
+    } else {
+      return res.json("Incorrect username/password.");
+    }
   })
 })
 
