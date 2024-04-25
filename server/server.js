@@ -1,9 +1,9 @@
 const express = require("express");
-const mysql = require("mysql");
+const mysql = require("mysql2");
 const cors = require("cors");
 const path = require("path");
-
 const app = express();
+
 path.resolve()
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
@@ -14,22 +14,22 @@ const db = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "p33p33p00p00", // this is the password i use for my localhost (christian)
-  database: "wishlists",
+  database: "gamelibrary",
 });
-
 
 app.listen(port, () => {
   console.log("Listening");
+  console.log("Database connected");
 })
 
 //SQL query for adding to database
-app.post('/signup', (req, res) => {
-  const sql = "INSERT INTO Users (`username`, `pass`, 'email') VALUES (?, ?, ?, ?)";
+app.post("/signup", (req, res) => {
+  const sql = "INSERT INTO users (`Username`, `Pass`, `Email`) VALUES (?, ?, ?)";
   const values = [
     req.body.username,
     req.body.password,
     req.body.email
-  ]
+  ];
   db.query(sql, values, (err, data) => {
     if (err) {
       return res.json({ message: "Something unexpected has occured" + err });
@@ -37,6 +37,7 @@ app.post('/signup', (req, res) => {
     return res.json({ success: "User added successfully" + data });
   })
 })
+
 
 /*app.post("/add_user", (req, res) => {
   const sql =

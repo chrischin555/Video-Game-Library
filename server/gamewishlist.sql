@@ -1,5 +1,3 @@
-USE wishlists;
-
 CREATE TABLE Users (
     UserID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     Username VARCHAR(255) NOT NULL,

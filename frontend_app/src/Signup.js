@@ -1,18 +1,19 @@
 import React, {useState} from 'react'
-import { Link } from 'react-router-dom';
 import Validation from './SignupValidation';
-import axios from  'axios'
-import {useNavigate} from 'react-router-dom';
+import Axios from  'axios'
+import {Link, useNavigate} from 'react-router-dom';
 
 //setting up sign up form
 function Signup() {
     const [values, setValues] = useState({ //fields for setting username, email, password
+        userid: '',
         username: '',
         email: '',
         password: ''
     })
-    const navigate = useNavigate();
     const [errors, setErrors] = useState({})
+
+    const navigate = useNavigate();
 
     const handleInput = (event) => {
         setValues(prev => ({ ...prev, [event.target.name]: [event.target.value.trim()]}))
@@ -23,13 +24,18 @@ function Signup() {
         const error = Validation(values)
         setErrors(error)
         if(error.username === "" && error.email === "" && error.password === ""){ //if errors are empty, no errors
-            axios.post('http://localhost:3000/signup', values) //pass values
+            Axios.post("http://localhost:5000/signup", values) //pass values
             .then(res => {
                 navigate('/');
+                console.log(res);
+                console.log("Successfully added to the database.");
             })
             .catch(err => console.log(err));
         }
-    }
+    }   
+
+
+    
 
     
   return (
@@ -39,7 +45,7 @@ function Signup() {
     }}>
         <div className='bg-white p-3 rounded w-25'>
         <h2>Sign Up</h2>
-            <form action="" onSubmit = {handleSubmit}>
+            <form onSubmit = {handleSubmit}>
                 <div className='mb-3'>
                     <label htmlFor="username"><strong>Username</strong></label>
                     <input type="username" placeholder='Enter your username.' name ='username' 
