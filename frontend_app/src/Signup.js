@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState,} from 'react'
 import Validation from './SignupValidation';
 import Axios from  'axios'
 import {Link, useNavigate} from 'react-router-dom';
@@ -26,17 +26,13 @@ function Signup() {
         if(error.username === "" && error.email === "" && error.password === ""){ //if errors are empty, no errors
             Axios.post("http://localhost:5000/signup", values) //pass values
             .then(res => {
-                navigate('/');
+                navigate('/login');
                 console.log(res);
                 console.log("Successfully added to the database.");
             })
             .catch(err => console.log(err));
         }
     }   
-
-
-    
-
     
   return (
     <div className='d-flex justify-content-center align-items-center' style={{
@@ -65,7 +61,7 @@ function Signup() {
                     {errors.password && <span className='text-danger'>{errors.password}</span>}
                 </div>
                 <button type ='submit' className='btn btn-secondary w-100 rounded-0'><strong>Sign Up</strong></button>
-                <Link to= "/" className='btn btn-default border w-100 bg-light rounded-0 text-decoration-none'>Login</Link>
+                <Link to= "/login" className='btn btn-default border w-100 bg-light rounded-0 text-decoration-none'>Login</Link>
             </form>
         </div>
     </div>

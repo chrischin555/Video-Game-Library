@@ -25,7 +25,7 @@ function Validation(values){
     if(values.password === ""){
         error.password = "Password should not be blank."
     } else if(!password_pattern.test(values.password)){
-        error.password = "Password is invalid. Must contain a symbol, uppercase and lowercase letter, and a number."
+        error.password = "Password is invalid. Must be at least 8 characters, contain a symbol, uppercase and lowercase letter, and a number."
         console.log("Password:", values.password);
         console.log("Pattern Test Result:", password_pattern.test(values.password));
         
