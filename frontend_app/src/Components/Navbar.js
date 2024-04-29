@@ -43,7 +43,7 @@ function Navbar() {
                             </Link>
                         </li>
                         <li className='nav-item'>
-                            <Link to="/" className='nav-links' onClick={closeMenu}>
+                            <Link to="/profile" className='nav-links' onClick={closeMenu}>
                                 Profile
                             </Link>
                         </li>
