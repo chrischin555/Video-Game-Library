@@ -23,7 +23,9 @@ function Login() {
         if(error.email === "" && error.password === ""){
             Axios.post("http://localhost:8081/login", values).then(res =>{
                 if(res.data.success){
-                    navigate('/home') //replace with dedicated home page 
+                    localStorage.setItem("isLoggedIn", "true")
+                    localStorage.setItem("currentUser", values.email)
+                    navigate('/') //replace with dedicated home page 
                 } else{
                     alert("User does not exist.")
                 }

@@ -26,7 +26,9 @@ function Signup() {
         if(error.username === "" && error.email === "" && error.password === ""){ //if errors are empty, no errors
             Axios.post("http://localhost:8081/signup", values) //pass values
             .then(res => {
-                navigate('/login');
+                localStorage.setItem('isLoggedIn', 'true');
+                //localStorage.setItem('currentUser', values.email);
+                navigate('/');
                 console.log(res);
                 console.log("Successfully added to the database.");
             })
