@@ -33,6 +33,8 @@ CREATE TABLE Reviews (
     ReviewID INT PRIMARY KEY,
     UserID INT,
     GameID INT,
-    Commentt TEXT,
-    Rating INT
+    Comment TEXT,
+    Rating INT,
+    FOREIGN KEY (UserID) REFERENCES Users(UserID),
+    FOREIGN KEY (GameID) REFERENCES Games(GameID)
 );

@@ -9,11 +9,11 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 app.use(express.json());
 
-const port = 5000
+const port = 8081
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "",
+  password: "class437$",
   database: "gamelibrary"
 });
 
