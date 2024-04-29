@@ -1,3 +1,4 @@
+import mysql from 'mysql2/promise';
 const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
@@ -13,7 +14,7 @@ const port = 8081
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "class437$",
+  password: "",
   database: "gamelibrary"
 });
 
@@ -21,6 +22,8 @@ app.listen(port, () => {
   console.log("Listening");
   console.log("Database connected");
 })
+
+
 
 //SQL query for adding to database
 app.post("/signup", (req, res) => {
