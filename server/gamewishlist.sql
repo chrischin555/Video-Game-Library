@@ -1,3 +1,5 @@
+CREATE DATABASE gamelibrary;
+
 CREATE TABLE Users (
     UserID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     Username VARCHAR(255) NOT NULL,
@@ -33,6 +35,6 @@ CREATE TABLE Reviews (
     ReviewID INT PRIMARY KEY,
     UserID INT,
     GameID INT,
-    Commentt TEXT,
+    Comment TEXT,
     Rating INT
 );

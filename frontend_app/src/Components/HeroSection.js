@@ -7,19 +7,13 @@ function HeroSection() {
     return (
         <div className='hero-container'>
             <h1>Game Library</h1>
-            <p>Look up games, review them, and add to your wishlist!</p>
-            <div className="hero-btns">
+            <p>Look up games, review them, and add them to your wishlist!</p>
+            <div className='hero-btns'>
                 <Button
                     className='btns'
                     buttonStyle='btn--outline'
                     buttonSize='btn--large'>
                     GET STARTED
-                </Button>
-                <Button
-                    className='btns'
-                    buttonStyle='btn--outline'
-                    buttonSize='btn--large'>
-                    WATCH TRAILER <i className='far fa-play-circle' />
                 </Button>
             </div>
         </div>

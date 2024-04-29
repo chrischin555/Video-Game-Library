@@ -1,9 +1,7 @@
-import React, { useState, useEffect} from 'react'
-import { Button } from './Button'
+import React, { useState, useEffect } from 'react'
+import { Button } from './Button';
 import { Link } from 'react-router-dom'
 import './Navbar.css'
-
-
 
 function Navbar() {
     const [click, setClick] = useState(false);
@@ -30,44 +28,60 @@ function Navbar() {
         <>
             <nav className='navbar'>
                 <div className='navbar-container'>
-                    <Link to="/" className='navbar-logo' onClick = {closeMenu}>
-                        Game Library <i className=' fa-solid fa-gamepad'></i>
+                    <Link to="/" className='navbar-logo' onClick={closeMenu}>
+                        Game Library 
+                        <i className=' fa-solid fa-gamepad'></i>
                     </Link>
                     <div className='menu-icon' onClick={handleMenuClick}>
                         <i className={click ? 'fas fa-times' : 'fa-solid fa-bars'} />
                     </div>
                     <ul className={click ? 'nav-menu active' : 'nav-menu'}>
                         <li className='nav-item'>
-                            <Link to="/home" className='nav-links' onClick={closeMenu}>
+                            <Link to="/home" 
+                            className='nav-links' 
+                            onClick={closeMenu}
+                            >
                                 Home
                             </Link>
                         </li>
                         <li className='nav-item'>
-                            <Link to="/" className='nav-links' onClick={closeMenu}>
+                            <Link to="/" 
+                            className='nav-links' 
+                            onClick={closeMenu}
+                            >
                                 Profile
                             </Link>
                         </li>
                         <li className='nav-item'>
-                            <Link to="/" className='nav-links' onClick={closeMenu}>
+                            <Link to="/" 
+                            className='nav-links' 
+                            onClick={closeMenu}
+                            >
                                 Wishlist
                             </Link>
                         </li>
                         <li className='nav-item'>
-                            <Link to="/login" className='nav-links' onClick={closeMenu}>
+                            <Link to="/login" 
+                            className='nav-links' 
+                            onClick={closeMenu}
+                            >
                                 Sign Up/Sign In
                             </Link>
                         </li>
                         <li className='nav-item'>
-                        <Link to="/login" className='nav-links-mobile' onClick={closeMenu}>
-                            Sign Up/Sign In
-                        </Link>
-                    </li>
+                            <Link to="/login" 
+                            className='nav-links-mobile' 
+                            onClick={closeMenu}
+                            >
+                                Sign Up/Sign In
+                            </Link>
+                        </li>
                     </ul>
-                    {button && <Button buttonStyle='btn--outline'>Sign up/Sign in</Button>}
+                    {button && <Button buttonStyle="btn--outline">Sign Up/Sign In</Button>}
                 </div>
             </nav>
         </>
     )
 }
 
-export default Navbar
+export default Navbar;
