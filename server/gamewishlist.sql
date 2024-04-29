@@ -2,7 +2,9 @@ CREATE TABLE Users (
     UserID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     Username VARCHAR(255) NOT NULL,
     Pass VARCHAR(255) NOT NULL,
-    Email VARCHAR(255) NOT NULL
+    Email VARCHAR(255) NOT NULL,
+    UNIQUE (Username),
+    UNIQUE (Email)
     
 );
 
