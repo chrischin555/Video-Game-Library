@@ -25,10 +25,10 @@ function App() {
         <Route path='/login' exact element={<Login />}></Route>
         /*sets up a redirect for home page*/
         <Route path='/home' exact element={<Home />}></Route>
-        <Route path='/dragonsdogma' exact element={<DragonsDogma />}></Route>
-        <Route path='/fireemblem' exact element={<FireEmblem />}></Route>
-        <Route path='/persona' exact element={<Persona />}></Route>
-        <Route path='/residentevil' exact element={<ResidentEvil />}></Route>
+        <Route path='/games/dragonsdogma2' exact element={<DragonsDogma />}></Route>
+        <Route path='/games/fireemblem:engage' exact element={<FireEmblem />}></Route>
+        <Route path='/games/persona3:remake' exact element={<Persona />}></Route>
+        <Route path='/games/residentevil:village' exact element={<ResidentEvil />}></Route>
         <Route path='/games' exact element={<Games />}></Route>
         <Route path='/profile' exact element={<Profile />}></Route>
         <Route path='/wishlist' exact element={<WishlistPage />}></Route>

@@ -9,7 +9,7 @@ function FireEmblem() {
     const [wishlistAdded, setWishlistAdded] = useState(false);
 
     useEffect(() => {
-        const gameId = '2'; 
+        const gameId = '4'; 
     
         Axios.get(`http://localhost:8081/game/reviews?gameId=${gameId}`)
             .then(response => {
@@ -31,12 +31,13 @@ function FireEmblem() {
     
     const addToWishlist = () => {
         const userId = '1'; // This should come from the user's session or state
-        const gameId = '2'; 
+        const gameId = '4'; 
     
-        Axios.post("http://localhost:8081/user/add-to-wishlist", { userId, gameId })
+        Axios.post(`http://localhost:8081/user/add-to-wishlist?`, { userId, gameId })
             .then(response => {
                 if (response.data.success) {
                     setWishlistAdded(true);
+                    alert('Added to wishlist successfully.')
                 }
             })
             .catch(error => {
@@ -58,6 +59,8 @@ function FireEmblem() {
             <button onClick={addToWishlist} disabled={wishlistAdded}>
                 {wishlistAdded ? 'Added to Wishlist' : 'Add to Wishlist'}
             </button>
+            <label>Add a Review</label>
+            <input class = "review" type = "text"></input>
         </div>
     );
 }

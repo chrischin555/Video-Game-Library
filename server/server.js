@@ -79,18 +79,21 @@ app.get('/user/wishlist', (req, res) => {
   const email = req.query.email;
   console.log("Fetching wishlist for email:", email);
 
-  const query = `SELECT Games.GameID, Games.GameTitle, Games.Category, Games.DateReleased, Games.Publisher 
-                 FROM Games 
-                 JOIN WishList ON Games.GameID = WishList.GameID 
-                 JOIN Users ON WishList.UserID = Users.UserID 
-                 WHERE Users.Email = ?`;
+  const query = `SELECT Games.GameID, Games.GameTitle, Games.Category, Games.DateReleased, Publishers.Publisher 
+  FROM Games 
+  JOIN Games_Publishers ON Games.GameID = Games_Publishers.GameID
+  JOIN Publishers ON Publishers.PublisherID = Games_Publishers.PublisherID
+  JOIN WishList ON Games.GameID = WishList.GameID 
+  JOIN Users ON WishList.UserID = Users.UserID 
+  WHERE Users.Email = ?`;
+  
   db.query(query, [email], (err, results) => {
-      if (err) {
-          console.error("Database error during fetching wishlist:", err);
-          return res.status(500).send('Database error during fetching wishlist');
-      }
-      console.log("Wishlist items retrieved:", results);
-      res.send(results);
+    if (err) {
+      console.error("Database error during fetching wishlist:", err);
+      return res.status(500).send('Database error during fetching wishlist');
+    }
+    console.log("Wishlist items retrieved:", results);
+    res.send(results);
   });
 });
 
@@ -106,45 +109,47 @@ app.get('/user/reviews', (req, res) => {
                  JOIN Users ON Reviews.UserID = Users.UserID 
                  WHERE Users.Email = ?`;
   db.query(query, [email], (err, results) => {
-      if (err) {
-          console.error("Database error during fetching reviews:", err);
-          return res.status(500).send('Database error during fetching reviews');
-      }
-      console.log("Reviews retrieved:", results);
-      res.send(results);
+    if (err) {
+      console.error("Database error during fetching reviews:", err);
+      return res.status(500).send('Database error during fetching reviews');
+    }
+    console.log("Reviews retrieved:", results);
+    res.send(results);
   });
 });
 
 app.get('/games', (req, res) => {
-  const query = `SELECT GameTitle, Category, DateReleased, Publisher, Platforms.Platform
+  const query = `SELECT Games.GameTitle, Games.Category, Games.DateReleased, Platforms.Platform, Publishers.Publisher
   FROM Games
-  INNER JOIN Platforms
-  ON Games.GameID = Platforms.GameID`;
-  
+  INNER JOIN Games_Platform ON Games.GameID = Games_Platform.GameID
+  INNER JOIN Platforms ON Games_Platform.PlatformID = Platforms.PlatformID
+  INNER JOIN Games_Publishers ON Games.GameID = Games_Publishers.GameID
+  INNER JOIN Publishers ON Games_Publishers.PublisherID = Publishers.PublisherID;`;
+
   db.query(query, (err, results) => {
-      if (err) {
-          console.error("Database error during fetching games:", err);
-          return res.status(500).send('Database error during fetching games');
-      }
-      console.log("Games retrieved:", results);
-      res.send(results);
+    if (err) {
+      console.error("Database error during fetching games:", err);
+      return res.status(500).send('Database error during fetching games');
+    }
+    console.log("Games retrieved:", results);
+    res.send(results);
   });
 });
 
 app.post("/user/add-to-wishlist", (req, res) => {
   const userId = req.body.userId;
   const gameId = req.body.gameId;
-  
+
   const sql = "INSERT INTO WishList (UserID, GameID) VALUES (?, ?)";
   const values = [userId, gameId];
-  
+
   db.query(sql, values, (err, result) => {
-      if (err) {
-          console.error("Error adding to wishlist:", err);
-          return res.status(500).json({ error: "Failed to add to wishlist" });
-      }
-      console.log("Added to wishlist:", result);
-      return res.json({ success: true });
+    if (err) {
+      console.error("Error adding to wishlist:", err);
+      return res.status(500).json({ error: "Failed to add to wishlist" });
+    }
+    console.log("Added to wishlist:", result);
+    return res.json({ success: true });
   });
 });
 

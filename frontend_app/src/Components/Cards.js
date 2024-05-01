@@ -14,22 +14,22 @@ function Cards() {
                         <CardItem src ='/images/dragonsdogma2.jpg'
                         label = "Dragon's Dogma II"
                         text = "Action RPG by Capcom"
-                        path = "/dragonsdogma"
+                        path = "games/dragonsdogma2"
                         />
                         <CardItem src ='/images/fireemblemengage.jpg'
                         label = "Fire Emblem: Engage"
                         text = "Tactical JRPG by Nintendo"
-                        path = "/fireemblem"
+                        path = "games/fireemblem:engage"
                         />
                         <CardItem src ='/images/persona3remake.jpg'
                         label = "Persona 3: Remake"
                         text = "Remake of Persona 3; RPG by Atlus"
-                        path = "/persona"
+                        path = "games/persona3:remake"
                         />
                         <CardItem src ='/images/residentevilvillage.jpg'
                         label = "Resident Evil: Village"
                         text = "Survival horror by Capcom"
-                        path = "/residentevil"
+                        path = "games/residentevil:village"
                         />
                     </ul>
                 </div>

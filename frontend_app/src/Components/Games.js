@@ -29,8 +29,8 @@ const Games = () => {
                             <th>Game Title</th>
                             <th>Category</th>
                             <th>Date Released</th>
-                            <th>Publisher</th>
                             <th>Platform</th>
+                            <th>Publisher</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,11 +43,10 @@ const Games = () => {
                                                 {game.GameTitle}
                                             </Link>
                                         </td>
-                                        <td>{game.GameTitle}</td>
                                         <td>{game.Category}</td>
                                         <td>{game.DateReleased}</td>
+                                        <td>{game.Platform}</td>
                                         <td>{game.Publisher}</td>
-                                        
                                     </tr>
                                 )
                             })

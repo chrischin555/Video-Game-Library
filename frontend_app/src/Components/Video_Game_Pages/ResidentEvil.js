@@ -9,7 +9,7 @@ function ResidentEvil() {
     const [wishlistAdded, setWishlistAdded] = useState(false);
 
     useEffect(() => {
-        const gameId = '4'; 
+        const gameId = '3'; 
     
         Axios.get(`http://localhost:8081/game/reviews?gameId=${gameId}`)
             .then(response => {
@@ -31,12 +31,13 @@ function ResidentEvil() {
 
     const addToWishlist = () => {
         const userId = '1'; // This should come from the user's session or state
-        const gameId = '4'; 
+        const gameId = '3'; 
     
         Axios.post("http://localhost:8081/user/add-to-wishlist", { userId, gameId })
             .then(response => {
                 if (response.data.success) {
                     setWishlistAdded(true);
+                    alert('Added to wishlist successfully.')
                 }
             })
             .catch(error => {
@@ -59,6 +60,8 @@ function ResidentEvil() {
             <button onClick={addToWishlist} disabled={wishlistAdded}>
                 {wishlistAdded ? 'Added to Wishlist' : 'Add to Wishlist'}
             </button>
+            <label>Add a Review</label>
+            <input class = "review" type = "text"></input>
         </div>
     );
 }

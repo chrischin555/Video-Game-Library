@@ -7,6 +7,7 @@ import './Styles/GameHome.css'; // Assuming similar CSS styles are used
 function DragonsDogma() {
     const [gameDetails, setGameDetails] = useState({ reviews: [], rating: 0 });
     const [wishlistAdded, setWishlistAdded] = useState(false);
+    const [reviewInput, setReviewInput] = useState('');
 
     useEffect(() => {
         const gameId = '1'; 
@@ -38,6 +39,7 @@ function DragonsDogma() {
             .then(response => {
                 if (response.data.success) {
                     setWishlistAdded(true);
+                    alert('Added to wishlist successfully.')
                 }
             })
             .catch(error => {
@@ -46,6 +48,29 @@ function DragonsDogma() {
             });
     };
 
+    const submitReview = () => {
+        const userId = '1'; // Assuming user ID comes from session or state
+        const gameId = '1'; // Assuming game ID is fixed for now
+        
+        Axios.post("http://localhost:8081/game/add-review", { userId, gameId, comment: reviewInput })
+            .then(response => {
+                if (response.data.success) {
+                    // Assuming the response contains updated reviews, update the state
+                    setGameDetails(prev => ({
+                        ...prev,
+                        reviews: response.data.reviews
+                    }));
+                    setReviewInput(''); // Clear the review input field
+                    alert('Review added successfully.');
+                }
+            })
+            .catch(error => {
+                console.log("Error adding review:", error);
+                alert('Failed to add review.');
+            });
+    };
+
+
     return (
         <div className='gameDetails'>
             <h1>About Dragon's Dogma</h1>
@@ -53,7 +78,7 @@ function DragonsDogma() {
             <h3>Rating: {gameDetails.rating.toFixed(1)}</h3>
             <h2>--Reviews--</h2>
             <ul>
-                {gameDetails.reviews.map(review => (
+                {gameDetails.reviews && gameDetails.reviews.map(review => (
                     <li key={review.ReviewID}>{review.Comment} {review.UserID}</li>
                 ))}
             </ul>
