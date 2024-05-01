@@ -47,7 +47,7 @@ const Games = () => {
                                         <td>{game.Category}</td>
                                         <td>{game.DateReleased}</td>
                                         <td>{game.Publisher}</td>
-                                        <td>{game.Platform}</td>
+                                        
                                     </tr>
                                 )
                             })
