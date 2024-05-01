@@ -3,6 +3,7 @@ import CardItem from './CardItem'
 import './Cards.css'
 
 function Cards() {
+   
     return (
         <div className='cards'>
             <h1>
@@ -11,23 +12,23 @@ function Cards() {
                 <div className="cards__wrapper">
                     <ul className="cards__items">
                         <CardItem src ='/images/dragonsdogma2.jpg'
-                        label = "test"
-                        text = "test"
+                        label = "Dragon's Dogma II"
+                        text = "Action RPG by Capcom"
                         path = "/dragonsdogma"
                         />
                         <CardItem src ='/images/fireemblemengage.jpg'
-                        label = "test"
-                        text = "test"
+                        label = "Fire Emblem: Engage"
+                        text = "Tactical JRPG by Nintendo"
                         path = "/fireemblem"
                         />
                         <CardItem src ='/images/persona3remake.jpg'
-                        label = "test"
-                        text = "test"
+                        label = "Persona 3: Remake"
+                        text = "Remake of Persona 3; RPG by Atlus"
                         path = "/persona"
                         />
                         <CardItem src ='/images/residentevilvillage.jpg'
-                        label = "test"
-                        text = "test"
+                        label = "Resident Evil: Village"
+                        text = "Survival horror by Capcom"
                         path = "/residentevil"
                         />
                     </ul>

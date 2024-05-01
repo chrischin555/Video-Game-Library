@@ -7,7 +7,7 @@ CREATE TABLE Users (
 );
 
 CREATE TABLE Games (
-    GameID INT PRIMARY KEY,
+    GameID INT AUTO_INCREMENT PRIMARY KEY,
     GameTitle VARCHAR(255) NOT NULL,
     Category VARCHAR(255),
     DateReleased DATE,
@@ -15,7 +15,7 @@ CREATE TABLE Games (
 );
 
 CREATE TABLE Platforms (
-    PlatformID INT PRIMARY KEY,
+    PlatformID INT AUTO_INCREMENT PRIMARY KEY,
     GameID INT,
     Platform VARCHAR(255) NOT NULL,
     FOREIGN KEY (GameID) REFERENCES Games(GameID)
@@ -30,9 +30,11 @@ CREATE TABLE WishList (
 );
 
 CREATE TABLE Reviews (
-    ReviewID INT PRIMARY KEY,
+    ReviewID INT AUTO_INCREMENT PRIMARY KEY,
     UserID INT,
     GameID INT,
     Commentt TEXT,
     Rating INT
+    FOREIGN KEY (UserID) REFERENCES Users(UserID),
+    FOREIGN KEY (GameID) REFERENCES Games(GameID)
 );

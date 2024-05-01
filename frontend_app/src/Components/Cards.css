@@ -9,7 +9,6 @@
   }
   
   .cards__container {
-    display: flex;
     flex-flow: column;
     align-items: center;
     max-width: 1120px;

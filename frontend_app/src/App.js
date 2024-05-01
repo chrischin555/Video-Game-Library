@@ -8,8 +8,11 @@ import DragonsDogma from './Components/Video_Game_Pages/DragonsDogma'
 import FireEmblem from './Components/Video_Game_Pages/FireEmblem'
 import Persona from './Components/Video_Game_Pages/Persona'
 import ResidentEvil from './Components/Video_Game_Pages/ResidentEvil'
-
+import Games from './Components/Games'
+import Profile from './Profile'
+import WishlistPage from './Components/WishlistPage'
 import './App.css'
+
 
 function App() {
   return (
@@ -26,6 +29,9 @@ function App() {
         <Route path='/fireemblem' exact element={<FireEmblem />}></Route>
         <Route path='/persona' exact element={<Persona />}></Route>
         <Route path='/residentevil' exact element={<ResidentEvil />}></Route>
+        <Route path='/games' exact element={<Games />}></Route>
+        <Route path='/profile' exact element={<Profile />}></Route>
+        <Route path='/wishlist' exact element={<WishlistPage />}></Route>
       </Routes>
     </BrowserRouter>
   )
