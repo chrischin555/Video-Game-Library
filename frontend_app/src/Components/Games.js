@@ -31,7 +31,6 @@ const Games = () => {
                             <th>Date Released</th>
                             <th>Publisher</th>
                             <th>Platform</th>
-                            <th>Link to Game</th>
                         </tr>
                     </thead>
                     <tbody>
