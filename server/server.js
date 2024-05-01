@@ -131,13 +131,23 @@ app.get('/games', (req, res) => {
   });
 });
 
-app.post("/create", (req, res) => {
-    const name = req.body.name
+app.post("/user/add-to-wishlist", (req, res) => {
+  const userId = req.body.userId;
+  const gameId = req.body.gameId;
+  
+  const sql = "INSERT INTO WishList (UserID, GameID) VALUES (?, ?)";
+  const values = [userId, gameId];
+  
+  db.query(sql, values, (err, result) => {
+      if (err) {
+          console.error("Error adding to wishlist:", err);
+          return res.status(500).json({ error: "Failed to add to wishlist" });
+      }
+      console.log("Added to wishlist:", result);
+      return res.json({ success: true });
+  });
 });
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
 
 /*app.post("/add_user", (req, res) => {
   const sql =

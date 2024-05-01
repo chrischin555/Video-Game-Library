@@ -22,7 +22,7 @@ CREATE TABLE Platforms (
 );
 
 CREATE TABLE WishList (
-    WishlistID INT PRIMARY KEY,
+    WishlistID INT AUTO_INCREMENT PRIMARY KEY,
     UserID INT,
     GameID INT,
     FOREIGN KEY (UserID) REFERENCES Users(UserID),
@@ -33,7 +33,7 @@ CREATE TABLE Reviews (
     ReviewID INT AUTO_INCREMENT PRIMARY KEY,
     UserID INT,
     GameID INT,
-    Commentt TEXT,
+    Comment TEXT,
     Rating INT
     FOREIGN KEY (UserID) REFERENCES Users(UserID),
     FOREIGN KEY (GameID) REFERENCES Games(GameID)
