@@ -21,10 +21,10 @@ function Cards() {
                         text = "Tactical JRPG by Nintendo"
                         path = "games/fireemblem:engage"
                         />
-                        <CardItem src ='/images/persona3remake.jpg'
+                        <CardItem src ='/images/persona3reload.jpg'
                         label = "Persona 3: Remake"
                         text = "Remake of Persona 3; RPG by Atlus"
-                        path = "games/persona3:remake"
+                        path = "games/persona3:reload"
                         />
                         <CardItem src ='/images/residentevilvillage.jpg'
                         label = "Resident Evil: Village"

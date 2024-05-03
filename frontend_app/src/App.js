@@ -27,7 +27,7 @@ function App() {
         <Route path='/home' exact element={<Home />}></Route>
         <Route path='/games/dragonsdogma2' exact element={<DragonsDogma />}></Route>
         <Route path='/games/fireemblem:engage' exact element={<FireEmblem />}></Route>
-        <Route path='/games/persona3:remake' exact element={<Persona />}></Route>
+        <Route path='/games/persona3:reload' exact element={<Persona />}></Route>
         <Route path='/games/residentevil:village' exact element={<ResidentEvil />}></Route>
         <Route path='/games' exact element={<Games />}></Route>
         <Route path='/profile' exact element={<Profile />}></Route>

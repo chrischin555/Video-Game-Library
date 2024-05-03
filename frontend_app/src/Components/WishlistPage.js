@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
-import CardItem from './CardItem';  
-import './Cards.css';  
+import CardItem from './CardItem';
+import './Cards.css';
 
 function WishlistPage() {
     const [wishlist, setWishlist] = useState([]);
-    const currentUserEmail = localStorage.getItem('currentUser');  
+    const currentUserEmail = localStorage.getItem('currentUser');
 
     useEffect(() => {
         if (currentUserEmail) {
@@ -29,13 +29,13 @@ function WishlistPage() {
             <div className="cards__container">
                 <div className="cards__wrapper">
                     <ul className="cards__items">
-                        {wishlist.map(game => (
+                        {wishlist.map((game) => (
                             <CardItem
                                 key={game.GameID}
-                                src={game.ImageURL || '/images/placeholder.png'} 
+                                src={`/images/${game.GameTitle.toLowerCase().replace(/[:\s]/g, '')}.jpg`}
                                 label={game.Category}
                                 text={game.GameTitle}
-                                path={`/games/${game.GameID}`}
+                                path={`/games`}
                             />
                         ))}
                     </ul>

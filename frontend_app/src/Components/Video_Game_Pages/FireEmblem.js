@@ -2,16 +2,21 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import '../../App.css';
-import './Styles/GameHome.css'; // Assuming similar CSS styles are used
+import './Styles/GameHome.css'; //Import CSS file for styling
+
 
 function FireEmblem() {
     const [gameDetails, setGameDetails] = useState({ reviews: [], rating: 0 });
     const [wishlistAdded, setWishlistAdded] = useState(false);
+    const [review, setReviews] = useState({
+        comment: '',
+        rating: ''
+    });
 
     useEffect(() => {
         const gameId = '4'; 
     
-        Axios.get(`http://localhost:8081/game/reviews?gameId=${gameId}`)
+        Axios.get(`http://localhost:8081/games/reviews?gameId=${gameId}`)
             .then(response => {
                 const reviews = response.data;
                 const averageRating = reviews.length > 0 
@@ -30,7 +35,7 @@ function FireEmblem() {
     }, []);
     
     const addToWishlist = () => {
-        const userId = '1'; // This should come from the user's session or state
+        const userId = '4'; // This should come from the user's session or state
         const gameId = '4'; 
     
         Axios.post(`http://localhost:8081/user/add-to-wishlist?`, { userId, gameId })
@@ -45,9 +50,38 @@ function FireEmblem() {
                 alert('Failed to add to wishlist');
             });
     };
+
+    const handleReviewInput = (event) => {
+        event.persist();
+        setReviews(prev => ({...prev, [event.target.name]:event.target.value}));
+    }
+
+    const addReview = () => {
+        const userId = '4'; // This should come from the user's session or state
+        const gameId = '4';
+        const rating = review.rating;
+        const comment = review.comment;
+        
+        if (rating > 100) {
+            alert('Rating cannot be greater than 100.');
+        }  else{
+            Axios.post("http://localhost:8081/user/add-review", { userId, gameId, rating, comment})
+            .then(response => {
+                if (response.data.success) {
+                    console.log("Review:", review);
+                    alert('Added review successfully.');
+                }
+            })
+            .catch(error => {
+                console.log("Error adding review", error);
+                alert('Failed to add review');
+            });
+        }
+    };
+
     return (
         <div className='gameDetails'>
-            <h1>About Fire Emblem</h1>
+            <h1>About Fire Emblem: Engage</h1>
             <img src='/images/fireemblemengage.jpg' alt='Fire Emblem' />
             <h3>Rating: {gameDetails.rating.toFixed(1)}</h3>
             <h2>--Reviews--</h2>
@@ -59,8 +93,12 @@ function FireEmblem() {
             <button onClick={addToWishlist} disabled={wishlistAdded}>
                 {wishlistAdded ? 'Added to Wishlist' : 'Add to Wishlist'}
             </button>
-            <label>Add a Review</label>
-            <input class = "review" type = "text"></input>
+            <h1>Add a Review</h1>
+            <h2>Comment</h2>
+            <input type = "text" name = "comment" onChange = {handleReviewInput}/>
+            <h2>Rating (1-100)</h2>
+            <input type = "text" name = "rating" onChange = {handleReviewInput}/>
+            <button onClick={addReview}>Add Review</button>
         </div>
     );
 }

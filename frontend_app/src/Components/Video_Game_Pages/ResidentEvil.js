@@ -2,22 +2,27 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import '../../App.css';
-import './Styles/GameHome.css'; // Import the CSS file
+import './Styles/GameHome.css'; // Import the CSS file for styling
+
 
 function ResidentEvil() {
     const [gameDetails, setGameDetails] = useState({ reviews: [], rating: 0 });
     const [wishlistAdded, setWishlistAdded] = useState(false);
+    const [review, setReviews] = useState({
+        comment: '',
+        rating: ''
+    });
 
     useEffect(() => {
-        const gameId = '3'; 
-    
-        Axios.get(`http://localhost:8081/game/reviews?gameId=${gameId}`)
+        const gameId = '3';
+
+        Axios.get(`http://localhost:8081/games/reviews?gameId=${gameId}`)
             .then(response => {
                 const reviews = response.data;
-                const averageRating = reviews.length > 0 
+                const averageRating = reviews.length > 0
                     ? reviews.reduce((acc, curr) => acc + curr.Rating, 0) / reviews.length
                     : 0; // Default to 0 if no reviews
-    
+
                 setGameDetails(prev => ({
                     ...prev,
                     reviews: reviews,
@@ -30,9 +35,9 @@ function ResidentEvil() {
     }, []);
 
     const addToWishlist = () => {
-        const userId = '1'; // This should come from the user's session or state
-        const gameId = '3'; 
-    
+        const userId = '4'; // This should come from the user's session or state
+        const gameId = '3';
+
         Axios.post("http://localhost:8081/user/add-to-wishlist", { userId, gameId })
             .then(response => {
                 if (response.data.success) {
@@ -46,9 +51,37 @@ function ResidentEvil() {
             });
     };
 
+    const handleReviewInput = (event) => {
+        event.persist();
+        setReviews(prev => ({ ...prev, [event.target.name]: event.target.value }));
+    }
+
+    const addReview = () => {
+        const userId = '4'; // This should come from the user's session or state
+        const gameId = '3';
+        const comment = review.comment;
+        const rating = review.rating;
+
+        if (rating > 100) {
+            alert('Rating cannot be greater than 100.');
+        } else {
+            Axios.post("http://localhost:8081/user/add-review", { userId, gameId, rating, comment })
+                .then(response => {
+                    if (response.data.success) {
+                        console.log("Review:", review);
+                        alert('Added review successfully.');
+                    }
+                })
+                .catch(error => {
+                    console.log("Error adding review", error);
+                    alert('Failed to add review');
+                });
+        }
+    };
+
     return (
         <div className='gameDetails'>
-            <h1>About Resident Evil</h1>
+            <h1>About Resident Evil: Village</h1>
             <img src='/images/residentevilvillage.jpg' alt='Resident Evil Village' />
             <h3>Rating: {gameDetails.rating.toFixed(1)}</h3>
             <h2>--Reviews--</h2>
@@ -60,8 +93,12 @@ function ResidentEvil() {
             <button onClick={addToWishlist} disabled={wishlistAdded}>
                 {wishlistAdded ? 'Added to Wishlist' : 'Add to Wishlist'}
             </button>
-            <label>Add a Review</label>
-            <input class = "review" type = "text"></input>
+            <h1>Add a Review</h1>
+            <h2>Comment</h2>
+            <input type="text" name="comment" onChange={handleReviewInput} />
+            <h2>Rating (1-100)</h2>
+            <input type="text" name="rating" onChange={handleReviewInput} />
+            <button onClick={addReview}>Add Review</button>
         </div>
     );
 }

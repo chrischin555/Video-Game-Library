@@ -54,6 +54,7 @@ app.post('/login', (req, res) => {
   })
 })
 
+//SQL query to get user information
 app.get('/user/details', (req, res) => {
   const email = req.query.email;
   console.log("Fetching user details for email:", email);
@@ -73,6 +74,27 @@ app.get('/user/details', (req, res) => {
   });
 });
 
+//SQL query to get reviews
+app.get('/games/reviews', (req, res) => {
+  console.log("Fetching reviews:");
+
+  const gameId = req.query.gameId;
+  console.log("Game ID: " + gameId);
+
+  const query = `SELECT Reviews.ReviewID, Reviews.Comment, Reviews.Rating, Games.GameTitle
+  FROM Reviews 
+  JOIN Games ON Reviews.GameID = Games.GameID
+  WHERE Games.GameID = ?` 
+  
+  db.query(query, [gameId], (err, results) => {
+    if (err) {
+      console.error("Database error during fetching reviews:", err);
+      return res.status(500).send('Database error during fetching reviews');
+    }
+    console.log('Reviews retrieved:', results);
+    res.send(results);
+  });
+});
 
 // Endpoint to get user's wishlist
 app.get('/user/wishlist', (req, res) => {
@@ -80,12 +102,12 @@ app.get('/user/wishlist', (req, res) => {
   console.log("Fetching wishlist for email:", email);
 
   const query = `SELECT Games.GameID, Games.GameTitle, Games.Category, Games.DateReleased, Publishers.Publisher 
-  FROM Games 
-  JOIN Games_Publishers ON Games.GameID = Games_Publishers.GameID
-  JOIN Publishers ON Publishers.PublisherID = Games_Publishers.PublisherID
-  JOIN WishList ON Games.GameID = WishList.GameID 
-  JOIN Users ON WishList.UserID = Users.UserID 
-  WHERE Users.Email = ?`;
+    FROM Games 
+    JOIN Games_Publishers ON Games.GameID = Games_Publishers.GameID
+    JOIN Publishers ON Publishers.PublisherID = Games_Publishers.PublisherID
+    JOIN WishList ON Games.GameID = WishList.GameID 
+    JOIN Users ON WishList.UserID = Users.UserID 
+    WHERE Users.Email = ?`;
   
   db.query(query, [email], (err, results) => {
     if (err) {
@@ -118,13 +140,14 @@ app.get('/user/reviews', (req, res) => {
   });
 });
 
+//SQL query to obtain information about the current game
 app.get('/games', (req, res) => {
   const query = `SELECT Games.GameTitle, Games.Category, Games.DateReleased, Platforms.Platform, Publishers.Publisher
-  FROM Games
-  INNER JOIN Games_Platform ON Games.GameID = Games_Platform.GameID
-  INNER JOIN Platforms ON Games_Platform.PlatformID = Platforms.PlatformID
-  INNER JOIN Games_Publishers ON Games.GameID = Games_Publishers.GameID
-  INNER JOIN Publishers ON Games_Publishers.PublisherID = Publishers.PublisherID;`;
+    FROM Games
+    INNER JOIN Games_Platform ON Games.GameID = Games_Platform.GameID
+    INNER JOIN Platforms ON Games_Platform.PlatformID = Platforms.PlatformID
+    INNER JOIN Games_Publishers ON Games.GameID = Games_Publishers.GameID
+    INNER JOIN Publishers ON Games_Publishers.PublisherID = Publishers.PublisherID`;
 
   db.query(query, (err, results) => {
     if (err) {
@@ -136,6 +159,30 @@ app.get('/games', (req, res) => {
   });
 });
 
+//SQL query to add a review
+app.post("/user/add-review", (req, res) => {
+  const userId = req.body.userId;
+  const gameId = req.body.gameId;
+  const rating = req.body.rating;
+  const comment = req.body.comment;
+
+  const sql = "INSERT INTO Reviews (UserID, GameID, Rating, Comment) VALUES (?, ?, ?, ?)";
+  const values = [userId, gameId, rating, comment];
+
+  console.log("query: ", sql)
+  console.log("values: ", values)
+
+  db.query(sql, values, (err, result) => {
+    if (err) {
+      console.error("Error adding review:", err);
+      return res.status(500).json({ error: "Failed to add review" });
+    }
+    console.log("Added review:", result);
+    return res.json({ success: true });
+  });
+});
+
+//SQL query to add to wishlist
 app.post("/user/add-to-wishlist", (req, res) => {
   const userId = req.body.userId;
   const gameId = req.body.gameId;
@@ -153,64 +200,3 @@ app.post("/user/add-to-wishlist", (req, res) => {
   });
 });
 
-
-/*app.post("/add_user", (req, res) => {
-  const sql =
-    "INSERT INTO student_details (`name`,`email`,`age`,`gender`) VALUES (?, ?, ?, ?)";
-  const values = [req.body.name, req.body.email, req.body.age, req.body.gender];
-  db.query(sql, values, (err, result) => {
-    if (err)
-      return res.json({ message: "Something unexpected has occured" + err });
-    return res.json({ success: "Student added successfully" });
-  });
-});
-
-app.get("/students", (req, res) => {
-  const sql = "SELECT * FROM student_details";
-  db.query(sql, (err, result) => {
-    if (err) res.json({ message: "Server error" });
-    return res.json(result);
-  });
-});
-
-app.get("/get_student/:id", (req, res) => {
-  const id = req.params.id;
-  const sql = "SELECT * FROM student_details WHERE `id`= ?";
-  db.query(sql, [id], (err, result) => {
-    if (err) res.json({ message: "Server error" });
-    return res.json(result);
-  });
-});
-
-app.post("/edit_user/:id", (req, res) => {
-  const id = req.params.id;
-  const sql =
-    "UPDATE student_details SET `name`=?, `email`=?, `age`=?, `gender`=? WHERE id=?";
-  const values = [
-    req.body.name,
-    req.body.email,
-    req.body.age,
-    req.body.gender,
-    id,
-  ];
-  db.query(sql, values, (err, result) => {
-    if (err)
-      return res.json({ message: "Something unexpected has occured" + err });
-    return res.json({ success: "Student updated successfully" });
-  });
-});
-
-app.delete("/delete/:id", (req, res) => {
-  const id = req.params.id;
-  const sql = "DELETE FROM student_details WHERE id=?";
-  const values = [id];
-  db.query(sql, values, (err, result) => {
-    if (err)
-      return res.json({ message: "Something unexpected has occured" + err });
-    return res.json({ success: "Student updated successfully" });
-  });
-});*/
-
-/*app.listen(port, () => {
-  console.log(`listening on port ${port} `);
-});*/
