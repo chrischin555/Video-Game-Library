@@ -35,7 +35,7 @@ function FireEmblem() {
     }, []);
     
     const addToWishlist = () => {
-        const userId = '4'; // This should come from the user's session or state
+        const userId = '8'; // This should come from the user's session or state
         const gameId = '4'; 
     
         Axios.post(`http://localhost:8081/user/add-to-wishlist?`, { userId, gameId })
@@ -57,7 +57,7 @@ function FireEmblem() {
     }
 
     const addReview = () => {
-        const userId = '4'; // This should come from the user's session or state
+        const userId = '8'; // This should come from the user's session or state
         const gameId = '4';
         const rating = review.rating;
         const comment = review.comment;

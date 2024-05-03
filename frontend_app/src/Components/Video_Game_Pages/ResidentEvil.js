@@ -35,7 +35,7 @@ function ResidentEvil() {
     }, []);
 
     const addToWishlist = () => {
-        const userId = '4'; // This should come from the user's session or state
+        const userId = '8'; // This should come from the user's session or state
         const gameId = '3';
 
         Axios.post("http://localhost:8081/user/add-to-wishlist", { userId, gameId })
@@ -57,7 +57,7 @@ function ResidentEvil() {
     }
 
     const addReview = () => {
-        const userId = '4'; // This should come from the user's session or state
+        const userId = '8'; // This should come from the user's session or state
         const gameId = '3';
         const comment = review.comment;
         const rating = review.rating;
