@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
 import Signup from './Signup'
 import Home from './Home'
 import Login from './Login'
@@ -15,14 +15,38 @@ import './App.css'
 
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+
+  React.useEffect(() =>{
+    //managing user loggin state using localStorage
+    const loggedIn = localStorage.getItem("isLoggedIn") === "true";
+    setIsAuthenticated(loggedIn);
+  }, [])
+
+  const ProtectedRoute = ({ children }) => {
+    if(!isAuthenticated){
+      // Redirect them to the /login page, but save the current location they were
+      // trying to go to when they were redirected. This allows us to send them
+      // along to that page after they log in, which is a nicer user experience
+      // than dropping them off on the home page.
+
+      //if they are not authenticated it will take then to login page
+      return <Navigate to="/login" />;
+
+    }
+
+    return children;
+  };
+
   return (
     <BrowserRouter>
-    <Navbar />
+    <Navbar isAuthenticated={isAuthenticated}/>
       <Routes>
         /*sets up a redirect for signing up*/
-        <Route path ='/' exact element = {<Home />}></Route>
-        <Route path='/signup' exact element={<Signup />}></Route>
-        <Route path='/login' exact element={<Login />}></Route>
+        <Route path='/' element={<Home />} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/profile' element={<Profile />} />
         /*sets up a redirect for home page*/
         <Route path='/home' exact element={<Home />}></Route>
         <Route path='/games/dragonsdogma2' exact element={<DragonsDogma />}></Route>

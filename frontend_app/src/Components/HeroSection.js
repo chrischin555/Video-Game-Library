@@ -9,16 +9,10 @@ function HeroSection() {
             <h1>Game Library</h1>
             <p>Look up games, review them, and add to your wishlist!</p>
             <div className="hero-btns">
-                <Button
-                    className='btns'
-                    buttonStyle='btn--outline'
-                    buttonSize='btn--large'>
+                <Button>
                     GET STARTED
                 </Button>
-                <Button
-                    className='btns'
-                    buttonStyle='btn--outline'
-                    buttonSize='btn--large'>
+                <Button>
                     WATCH TRAILER <i className='far fa-play-circle' />
                 </Button>
             </div>
