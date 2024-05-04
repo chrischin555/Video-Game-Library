@@ -28,7 +28,7 @@ CREATE TABLE WishList (
     WishlistID INT PRIMARY KEY,
     UserID INT DEFAULT NULL,
     GameID INT DEFAULT NULL,
-    UNIQUE KEY(WishListID),
+    UNIQUE KEY(GameID),
     FOREIGN KEY (UserID) REFERENCES Users(UserID),
     FOREIGN KEY (GameID) REFERENCES Games(GameID)
 );
