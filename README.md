@@ -27,7 +27,10 @@ Then, create a new workspace with all imported files then open a terminal in the
 
 # Troubleshooting
 If the project runs with errors first time, delete node_modules folder and perform ‘npm install’ in /frontend_app.
+
 If there are errors after adding to the wishlist or adding a review, change the code for the video game pages in the Components folder to match the current userID after logging in. This can be checked through the Users table (we could have made it so that it grabs the user's ID on log in, but we did not implement that).
+
 If this doesn't work, make sure you add the games to your wishlist manually. Since everything is handled locally as of right now, you need to go in and add information about each game in the Games, Games_Platform, Games_Publishers, Platforms, and Publishers tables. 
 If that doesn't work, check if the server is running. 
+
 If you cannot see your profile or the games you put on your wishlist, check if you are logged in. 
