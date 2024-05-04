@@ -15,7 +15,7 @@ Then, create a new workspace with all imported files then open a terminal in the
 2) CD to the "server" directory within the project(to switch to the directory where the server is)
 3) Change the root, localhost, and password to what the root, localhost and password is in server.js for the current user.
 4) ![image](https://github.com/chrischin555/Video-Game-Library/assets/54284709/aa8fe5b1-11e7-482c-b03f-e21875f5d367)
-Make sure that all the the sql settings and password are to your sql information within your machine.
+    Make sure that all the the sql settings and password are to your sql information within your machine.
 5) Run 'npm i mysql2' to install mysql2 (mysql2 is the more popular package to install instead of MySQL)
 6) Run 'npm install' to install the necessary dependencies for managing the back end. 
 7) Run 'npm start' in your terminal to start the backend server. When your terminal says that you are listening at the port 8081, the backend server should be running.
