@@ -22,7 +22,11 @@ Make sure that all the the sql settings and password are to your sql information
 
 # Front-End 
 1) CD frontend_app (to switch to the directory where the front-end application is)
-2) Change the code for the video game pages in the Components folder to match the current userID after logging in. This can be checked through the Users table
-(we could have made it so that it grabs the user's ID on log in, but we did not implement that).
-3) Run npm install to install the dependencies needed for running the application.
-4) Run 'npm start' to start the frontend_application.  
+2) Run npm install to install the dependencies needed for running the application.
+3) Run 'npm start' to start the frontend_application.  
+
+# Troubleshooting
+If the project runs with errors first time, delete node_modules folder and perform ‘npm install’ in /frontend_app.
+If there are errors after adding to the wishlist or adding a review, change the code for the video game pages in the Components folder to match the current userID after logging in. This can be checked through the Users table (we could have made it so that it grabs the user's ID on log in, but we did not implement that).
+If that doesn't work, check if the server is running. 
+If you cannot see your profile or games you put on your wishlist, check if you are logged in. 
