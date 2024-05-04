@@ -24,7 +24,6 @@ function App() {
         <Route path='/signup' exact element={<Signup />}></Route>
         <Route path='/login' exact element={<Login />}></Route>
         /*sets up a redirect for home page*/
-        <Route path='/home' exact element={<Home />}></Route>
         <Route path='/games/dragonsdogma2' exact element={<DragonsDogma />}></Route>
         <Route path='/games/fireemblem:engage' exact element={<FireEmblem />}></Route>
         <Route path='/games/persona3:reload' exact element={<Persona />}></Route>
