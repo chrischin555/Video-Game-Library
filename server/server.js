@@ -1,4 +1,3 @@
-import mysql from 'mysql2/promise';
 const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
@@ -19,18 +18,9 @@ const db = mysql.createConnection({
 });
 
 app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
-  // Instead of "Database connected", actually check the connection:
-  db.connect(err => {
-    if (err) {
-      console.error('Error connecting to the database:', err);
-    } else {
-      console.log('Database successfully connected');
-    }
-  });
-});
-
-
+  console.log("Listening");
+  console.log("Database connected");
+})
 
 //SQL query for adding to database
 app.post("/signup", (req, res) => {
@@ -62,69 +52,7 @@ app.post('/login', (req, res) => {
       return res.json("Incorrect username/password.");
     }
   })
-});
-
-app.get('/user/details', (req, res) => {
-  const email = req.query.email;
-  console.log("Fetching user details for email:", email);
-
-  const query = 'SELECT Username, Email FROM Users WHERE Email = ?';
-  db.query(query, [email], (err, results) => {
-    // Improved error handling and response
-    if (err) {
-      console.error("Database error:", err);
-      return res.status(500).json({ error: 'An error occurred while fetching user details' });
-    }
-    if (results.length > 0) {
-      res.json(results[0]);
-    } else {
-      res.status(404).json({ message: 'User not found' });
-    }
-  });
-});
-
-
-// Endpoint to get user's wishlist
-app.get('/user/wishlist', (req, res) => {
-  const email = req.query.email;
-  console.log("Fetching wishlist for email:", email);
-
-  const query = `SELECT Games.GameID, Games.GameTitle, Games.Category, Games.DateReleased, Games.Publisher 
-                 FROM Games 
-                 JOIN WishList ON Games.GameID = WishList.GameID 
-                 JOIN Users ON WishList.UserID = Users.UserID 
-                 WHERE Users.Email = ?`;
-  db.query(query, [email], (err, results) => {
-      if (err) {
-          console.error("Database error during fetching wishlist:", err);
-          return res.status(500).send('Database error during fetching wishlist');
-      }
-      console.log("Wishlist items retrieved:", results);
-      res.send(results);
-  });
-});
-
-
-// Endpoint to get user's reviews
-app.get('/user/reviews', (req, res) => {
-  const email = req.query.email;
-  console.log("Fetching reviews for email:", email);
-
-  const query = `SELECT Reviews.ReviewID, Reviews.Comment, Reviews.Rating, Games.GameTitle 
-                 FROM Reviews 
-                 JOIN Games ON Reviews.GameID = Games.GameID 
-                 JOIN Users ON Reviews.UserID = Users.UserID 
-                 WHERE Users.Email = ?`;
-  db.query(query, [email], (err, results) => {
-      if (err) {
-          console.error("Database error during fetching reviews:", err);
-          return res.status(500).send('Database error during fetching reviews');
-      }
-      console.log("Reviews retrieved:", results);
-      res.send(results);
-  });
-});
-
+})
 
 //SQL query to get user information
 app.get('/user/details', (req, res) => {
@@ -271,4 +199,3 @@ app.post("/user/add-to-wishlist", (req, res) => {
     return res.json({ success: true });
   });
 });
-

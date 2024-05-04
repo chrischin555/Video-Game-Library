@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 import './Profile.css'
-//import gokuImage from './gokustaring.png'; // Adjust the path to the actual location
-
-// ...
 
 <img src= '/images/gokustaring.jpg' alt="Goku Staring" />
 
